@@ -1,0 +1,88 @@
+{
+  "name": "open-next-example-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/open-next-example-web",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx-open-next/nx-open-next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "open-next-example-web:build-next",
+        "sourceRoot": "apps/open-next-example-web"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "open-next-example-web:build-next:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "open-next-example-web:build-next:production",
+          "dev": false
+        }
+      },
+      "dependsOn": ["build-next"]
+    },
+    "build-next": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/open-next-example-web"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/open-next-example-web"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "open-next-example-web:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "open-next-example-web:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "open-next-example-web:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "open-next-example-web:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/open-next-example-web/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/open-next-example-web/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}

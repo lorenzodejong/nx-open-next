@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "title": "nx-open-next build executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "buildCommand": {
+      "type": "string",
+      "description": "Next.js build command to pass to open-next. Defaults to 'exit 0', because most apps are already built by Nx project dependsOn configurations."
+    },
+    "buildTarget": {
+      "type": "string",
+      "description": "Target which builds the application.",
+      "x-priority": "important"
+    },
+    "sourceRoot": {
+      "type": "string",
+      "description": "Root directory of the source code.",
+      "x-priority": "important"
+    }
+  },
+  "required": ["buildTarget", "sourceRoot"]
+}
