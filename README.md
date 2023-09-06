@@ -18,6 +18,10 @@ In it's most simple form the `open-next` command can be executed in the followin
 pnpm open-next build --build-command "pnpm nx build open-next-example-web" --app-path "apps/open-next-example-web" --build-output-path "dist/apps/open-next-example-web"
 ```
 
+Sadly enough Nx executors don't support ESM at the moment: https://github.com/nrwl/nx/issues/17390. 
+
+Because of this limitation we're forced to execute the `open-next` command as a child process in the workspace instead of importing the `build` function from `open-next/build`. Currently only ESM is exposed from `open-next`. 
+
 #### Options
 
 The Nx plugin sets this command up with the following provided options:
